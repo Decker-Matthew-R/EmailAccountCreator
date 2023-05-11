@@ -13,7 +13,7 @@ public class EmailAccount {
 
 
     public EmailAccount(int length, int emailCapacityGB, String recoveryEmail, Employee employee) {
-        this.emailAddress = employee.getFirstName() + "." + employee.getLastName() + "@" + employee.getDepartment() + "mattEnterprise.com";
+        this.emailAddress =employee.getFirstName().toLowerCase() + "." + employee.getLastName().toLowerCase() + "@" + employee.getDepartment().toLowerCase().replaceAll("\\s", "") + ".umbrellacorp.com";
         this.password = randomPasswordGenerator(length);
         this.emailCapacityGB = emailCapacityGB;
         this.recoveryEmail = recoveryEmail;
@@ -59,6 +59,15 @@ public class EmailAccount {
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    @Override
+    public String toString() {
+        return "EmailAccount:" + "\n" +
+                "Email Address ='" + emailAddress + "\n" +
+                "Password ='" + password + "\n" +
+                "EmailCapacityGB=" + emailCapacityGB + "\n" +
+                "RecoveryEmail ='" + recoveryEmail;
     }
 
     //Random Password Generator Method
