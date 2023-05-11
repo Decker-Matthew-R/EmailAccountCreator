@@ -9,6 +9,17 @@ public class EmailAccount {
     protected String recoveryEmail;
     protected Employee employee;
 
+    //Constructor
+
+
+    public EmailAccount(int length, int emailCapacityGB, String recoveryEmail, Employee employee) {
+        this.emailAddress = employee.getFirstName() + "." + employee.getLastName() + "@" + employee.getDepartment() + "mattEnterprise.com";
+        this.password = randomPasswordGenerator(length);
+        this.emailCapacityGB = emailCapacityGB;
+        this.recoveryEmail = recoveryEmail;
+        this.employee = employee;
+    }
+
     //Setters and Getters for class EmailAccount
     public String getEmailAddress() {
         return emailAddress;
@@ -50,7 +61,32 @@ public class EmailAccount {
         this.employee = employee;
     }
 
+    //Random Password Generator Method
+    static String randomPasswordGenerator(int pwLength)
+    {
 
+        // choose a Character random from this String
+        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                + "0123456789"
+                + "abcdefghijklmnopqrstuvxyz";
 
+        // create StringBuffer size of AlphaNumericString
+        StringBuilder sb = new StringBuilder(pwLength);
+
+        for (int i = 0; i < pwLength; i++) {
+
+            // generate a random number between
+            // 0 to AlphaNumericString variable length
+            int index
+                    = (int)(AlphaNumericString.length()
+                    * Math.random());
+
+            // add Character one by one in end of sb
+            sb.append(AlphaNumericString
+                    .charAt(index));
+        }
+
+        return sb.toString();
+    }
 
 }
