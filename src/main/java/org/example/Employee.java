@@ -42,9 +42,9 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Employee" + "\n" +
-                "FirstName='" + firstName + "\n" +
-                "LastName='" + lastName + "\n" +
-                "Department='" + department;
+        return "Employee:" + "\n" +
+                "FirstName=" + firstName + "\n" +
+                "LastName=" + lastName + "\n" +
+                "Department=" + department;
     }
 }

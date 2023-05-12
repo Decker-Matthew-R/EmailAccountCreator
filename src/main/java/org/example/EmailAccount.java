@@ -64,10 +64,10 @@ public class EmailAccount {
     @Override
     public String toString() {
         return "EmailAccount:" + "\n" +
-                "Email Address ='" + emailAddress + "\n" +
-                "Password ='" + password + "\n" +
-                "EmailCapacityGB=" + emailCapacityGB + "\n" +
-                "RecoveryEmail ='" + recoveryEmail;
+                "Email Address = " + emailAddress + "\n" +
+                "Password = " + password + "\n" +
+                "EmailCapacityGB= " + emailCapacityGB + " GB" + "\n" +
+                "RecoveryEmail = " + recoveryEmail;
     }
 
     //Random Password Generator Method

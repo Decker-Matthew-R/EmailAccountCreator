@@ -14,10 +14,11 @@ public class Commander {
         Scanner sc = new Scanner(System.in);
 
         //flag variable to allow repetition of menu during certain criteria
-        boolean flag = false;
+        boolean flag = true;
         int selection;
         do {
             //Intro to Menu
+            System.out.println(" ");
             System.out.println("Welcome");
             System.out.println(" ");
             System.out.println("Please Select From the Following Options: ");
@@ -52,16 +53,19 @@ public class Commander {
                     System.out.println("New User Created");
                     System.out.println("New User Information:");
                     System.out.println(eNew.toString());
+                    System.out.println(" ");
                     System.out.println(newEmail.toString());
 
                 }
                 case 2 -> {
+                    System.out.println(" ");
                     changePassword(newEmail);
-                    System.out.println(newEmail.getPassword());
+                    System.out.println("New Password: " + newEmail.getPassword());
                 }
                 case 3 -> {
+                    System.out.println(" ");
                     String password = retrievePassword(newEmail);
-                    System.out.println(password);
+                    System.out.println("Password: "+ password);
                 }
                 case 4 -> System.out.println("4");
                 case 5 -> {
@@ -105,6 +109,8 @@ public class Commander {
         //Create scanner object
         Scanner sc = new Scanner(System.in);
 
+        System.out.println("Employee Creator");
+
         //Enter Email Account Admin Information
         System.out.print("Enter default password length: ");
         int pwLength = sc.nextInt();
@@ -119,43 +125,42 @@ public class Commander {
         return new EmailAccount(pwLength, emailCapacityGB, recoveryEmail, eNew);
     }
 
-    public void changePassword(EmailAccount newEmail){
-
+    public void changePassword(EmailAccount newEmail) {
 
         //Create scanner object
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Password Creator");
 
+//        String newPW = " ";
+        String userPW = " ";
         int attempts = 0;
-        boolean flag = false;
+        boolean flag = true;
         do {
-            //Take Admin Information for user password
-            System.out.println(" ");
-            System.out.println("Please enter your current password: ");
-            String userPW = sc.nextLine();
+            if (attempts > 0) {
+                System.out.println("Incorrect Password. Try again.");
+            }
             attempts++;
-            if (attempts > 3){
+            //Take Admin Information for user password
+            System.out.print("Please enter your current password: ");
+            userPW = sc.nextLine();
+            if (attempts > 3) {
                 System.out.println("You have reached the maximum number of attempts");
             }
-
-            String newPassword = "";
-            do {
-                if (newEmail.getPassword().equals(userPW)) {
-                    System.out.println("Please enter a new password. The password must be at 5 or more characters/numbers");
-                    newPassword = sc.nextLine();
-                    newEmail.setPassword(newPassword);
-                    if (newPassword.length() < 5){
-                        System.out.println("Password must be 5 or more characters.");
-                    }
-                } else {
-                    flag = true;
-                }
-            }
-            while(newPassword.length() < 5);
         }
-        while(flag);
+        while (!newEmail.getPassword().equals(userPW));
 
+        String newPW;
+        do {
+            System.out.print("Enter a new password (password must be 5 characters or greater): ");
+            newPW = sc.nextLine();
+            if (newPW.length() < 5) {
+                System.out.println("Password must be 5 characters or greater.");
+            } else {
+                newEmail.setPassword(newPW);
+            }
+        }
+            while (newPW.length() <= 5) ;
     }
 
     public String retrievePassword(EmailAccount newEmail){
@@ -167,7 +172,7 @@ public class Commander {
         //Password recovery
         System.out.println("Password Recovery");
         System.out.println(" ");
-        System.out.println("Enter work email address: ");
+        System.out.print("Enter work email address: ");
         String workEmail = sc.nextLine();
         if (workEmail.equals(newEmail.getEmailAddress())){
             password = newEmail.getPassword();
