@@ -8,7 +8,7 @@ public class Commander {
     private EmailAccount newEmail;
 
 
-    public void buildMenu(){
+    public void buildMenu() {
 
         //Creates Scanner Object
         Scanner sc = new Scanner(System.in);
@@ -39,53 +39,61 @@ public class Commander {
             //If statement to alter flag variable based on certain conditions
             if (selection < 1 || selection > 6) {
                 System.out.println("Invalid Option");
-                System.exit(0);
+                flag = true;
+            } else {
+                flag = false;
             }
-
-
-            switch (selection) {
-                case 1 -> {
-                    System.out.println(" ");
-                    eNew = createNewEmployee();
-                    System.out.println(" ");
-                    newEmail = createNewEmployeeEmail(eNew);
-                    System.out.println(" ");
-                    System.out.println("New User Created");
-                    System.out.println("New User Information:");
-                    System.out.println(eNew.toString());
-                    System.out.println(" ");
-                    System.out.println(newEmail.toString());
-
-                }
-                case 2 -> {
-                    System.out.println(" ");
-                    changePassword(newEmail);
-                    System.out.println("New Password: " + newEmail.getPassword());
-                }
-                case 3 -> {
-                    System.out.println(" ");
-                    String password = retrievePassword(newEmail);
-                    System.out.println("Password: "+ password);
-                }
-                case 4 -> System.out.println("4");
-                case 5 -> {
-                    System.out.println(" ");
-                    System.out.println("Customer Information: ");
-                    System.out.println(eNew.toString());
-                    System.out.println(" ");
-                    System.out.println(newEmail.toString());
-                }
-                case 6 -> {
-                    System.out.println("Your are logged out.");
-                    System.exit(0);
-                    }
-            }
-
-
         }
-        while (flag);
-    }
+        while (flag) ;
 
+
+                switch (selection) {
+                    case 1 -> {
+                        System.out.println(" ");
+                        eNew = createNewEmployee();
+                        System.out.println(" ");
+                        newEmail = createNewEmployeeEmail(eNew);
+                        System.out.println(" ");
+                        System.out.println("New User Created");
+                        System.out.println("New User Information:");
+                        System.out.println(eNew.toString());
+                        System.out.println(" ");
+                        System.out.println(newEmail.toString());
+
+                    }
+                    case 2 -> {
+                        System.out.println(" ");
+                        changePassword(newEmail);
+                        System.out.println("New Password: " + newEmail.getPassword());
+                    }
+                    case 3 -> {
+                        System.out.println(" ");
+                        String password = retrievePassword(newEmail);
+                        System.out.println("Password: " + password);
+                    }
+                    case 4 -> {
+                        changeRecoveryEmail(newEmail);
+                        System.out.println(newEmail.getRecoveryEmail());
+                    }
+
+                    case 5 -> {
+                        System.out.println(" ");
+                        System.out.println("Customer Information: ");
+                        System.out.println(eNew.toString());
+                        System.out.println(" ");
+                        System.out.println(newEmail.toString());
+                    }
+                    case 6 -> {
+                        System.out.println("Your are logged out.");
+                        flag = false;
+                        System.exit(0);
+                    }
+                }
+
+
+            }
+
+    //Alteration Methods
 
     public Employee createNewEmployee() {
         //Create scanner object
@@ -132,7 +140,7 @@ public class Commander {
 
         System.out.println("Password Creator");
 
-//        String newPW = " ";
+//
         String userPW = " ";
         int attempts = 0;
         boolean flag = true;
@@ -160,7 +168,7 @@ public class Commander {
                 newEmail.setPassword(newPW);
             }
         }
-            while (newPW.length() <= 5) ;
+            while (newPW.length() < 5) ;
     }
 
     public String retrievePassword(EmailAccount newEmail){
@@ -184,6 +192,20 @@ public class Commander {
         }
 
         return password;
+    }
+
+    public void changeRecoveryEmail(EmailAccount newEmail){
+
+        //Create scanner object
+        Scanner sc = new Scanner(System.in);
+
+        //Change Email
+        System.out.println(" ");
+        System.out.print("Enter the new alternate email address: ");
+        String newRecoveryEmail = sc.nextLine();
+
+        //Set method call
+        newEmail.setRecoveryEmail(newRecoveryEmail);
     }
 
 }
